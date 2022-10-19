@@ -1,0 +1,5 @@
+flask
+MarkupSafe
+flask-wtf
+wtforms
+flask-bootstrap
