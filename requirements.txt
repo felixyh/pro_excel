@@ -4,4 +4,3 @@ flask-wtf
 wtforms
 flask-bootstrap
 flask-sqlalchemy
-flask-session

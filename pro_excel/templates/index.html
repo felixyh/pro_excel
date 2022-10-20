@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang = "en">
+   <head></head>
+   <body>
+      
+      <h3>
+         <a href = "{{ url_for('index') }}">pro_excel program</a>
+      </h3>
+      
+      <hr/>
+      {% for message in get_flashed_messages() %}
+         {{ message }}
+      {% endfor %}
+		
+      <h3>Students (<a href = "{{ url_for('new_book') }}">Add Book
+         </a>)</h3>
+      
+      <table>
+         <thead>
+            <tr>
+               <th>Name</th>
+               <th>Author</th>
+               <th>Price</th>
+            </tr>
+         </thead>
+         
+         <tbody>
+            {% for book in books %}
+               <tr>
+                  <td>{{ book.name }}</td>
+                  <td>{{ book.author }}</td>
+                  <td>{{ book.price }}</td>
+               </tr>
+            {% endfor %}
+         </tbody>
+      </table>
+      
+   </body>
+</html>
