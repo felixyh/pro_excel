@@ -1,7 +1,8 @@
-from pro_excel import create_app, config
+from pro_excel import config, create_app
 
 
 app = create_app()
+
 
 app.config.from_object(config.Config)
 
