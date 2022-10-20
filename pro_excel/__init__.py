@@ -1,11 +1,12 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, url_for, redirect, flash
 
-from .views.bp_test import bp_test
+from .views.login_bp import login_bp
 
 from .config import Config
 
 
 def create_app():
+
     app = Flask(__name__)
 
     @app.route('/')
@@ -13,11 +14,8 @@ def create_app():
     def index():
         return render_template('index.html')
 
-    @app.route('/login', )
-    def login():
-        return render_template('login.html')
 
-    app.register_blueprint(bp_test, url_prefix='/usr')
+    app.register_blueprint(login_bp)
     
 
     return app
