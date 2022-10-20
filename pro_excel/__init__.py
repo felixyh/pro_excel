@@ -2,14 +2,18 @@ from flask import Flask, render_template
 
 from .views.bp_test import bp_test
 
+
 def create_app():
     app = Flask(__name__)
 
-    app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
-
+    @app.route('/')
     @app.route('/index')
     def index():
-        return 'hello, I am Flask running on code-server!'
+        return render_template('show_book.html')
+
+    @app.route('/login')
+    def login():
+        return render_template('login.html')
     
     app.register_blueprint(bp_test, url_prefix='/usr')
     
