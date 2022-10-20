@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, url_for, redirect, flash
 
 from .views.login_bp import login_bp
 
-from .config import Config
+# from .config import Config
 
 
 def create_app():

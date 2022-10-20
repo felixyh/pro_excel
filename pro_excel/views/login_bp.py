@@ -1,10 +1,8 @@
 from flask import Blueprint
 from flask import render_template, request, url_for, redirect, flash
 from flask_session import Session
-
 from functools import wraps
 
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 login_bp = Blueprint('login', __name__)
 
