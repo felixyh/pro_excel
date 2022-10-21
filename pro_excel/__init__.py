@@ -4,6 +4,9 @@ from flask_sqlalchemy import SQLAlchemy
 
 from functools import wraps
 
+from werkzeug.utils import secure_filename
+import os
+
 
 
 ## create db
@@ -82,6 +85,17 @@ def create_app():
                 flash('Record was successfully added')
                 return redirect(url_for('index'))
         return render_template('new_book.html')
+
+    @app.route('/upload_excel', methods = ['GET', 'POST'])
+    @auth
+    def upload_excel():
+        if request.method == 'POST':
+            f = request.files['file']
+            print(request.files)
+            f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
+            return "file uploaded successfully"
+
+        return render_template('upload_excel.html')
     
 
     return app
