@@ -19,6 +19,7 @@
       <table>
          <thead>
             <tr>
+               {# <th>BookID</th> #}
                <th>Name</th>
                <th>Author</th>
                <th>Price</th>
@@ -29,12 +30,13 @@
          <tbody>
             {% for book in books %}
                <tr>
+                  {# <td>{{ book.id }}</td> #}
                   <td>{{ book.name }}</td>
                   <td>{{ book.author }}</td>
                   <td>{{ book.price }}</td>
                   <td>
-                     <a href="/delete/{{book.name}}">Delete</a>
-                     <a href="/modify?name={{book.name}}&&author={{book.author}}&&price={{book.price}}">Modify</a>
+                     <a href="/delete/{{book.id}}">Delete</a>
+                     <a href="/modify?id={{book.id}}">Modify</a>
                   </td>
                </tr>
             {% endfor %}

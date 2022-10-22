@@ -96,13 +96,28 @@ def create_app():
     #     db.session.commit()
     #     return redirect('/index')
 
-    @app.route('/delete/<name>')
+    @app.route('/delete/<int:id>')
     @auth
-    def delete(name):
-        book = Books.query.filter_by(name=name).first_or_404()
+    def delete(id):
+        book = Books.query.filter_by(id=id).first_or_404()
         db.session.delete(book)
         db.session.commit()
         return redirect('/index')
+
+    @app.route('/modify', methods=['GET', 'POST'])
+    @auth
+    def modify():
+        id = request.args['id']
+        book = Books.query.filter_by(id=int(id)).first_or_404()
+        if request.method == 'POST':
+            book.author = request.form['author']
+            book.price = request.form['price']
+            db.session.commit()
+            return redirect(url_for('index'))
+        name = book.name
+        author = book.author
+        price = book.price
+        return render_template('modify.html', author=author, price=price)
         
 
     @app.route('/upload_excel', methods = ['GET', 'POST'])
