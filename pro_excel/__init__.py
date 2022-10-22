@@ -86,6 +86,25 @@ def create_app():
                 return redirect(url_for('index'))
         return render_template('new_book.html')
 
+
+    # @app.route('/delete')
+    # @auth
+    # def delete():
+    #     bname = request.args['name']
+    #     book = Books.query.filter_by(name=bname).first_or_404()
+    #     db.session.delete(book)
+    #     db.session.commit()
+    #     return redirect('/index')
+
+    @app.route('/delete/<name>')
+    @auth
+    def delete(name):
+        book = Books.query.filter_by(name=name).first_or_404()
+        db.session.delete(book)
+        db.session.commit()
+        return redirect('/index')
+        
+
     @app.route('/upload_excel', methods = ['GET', 'POST'])
     @auth
     def upload_excel():

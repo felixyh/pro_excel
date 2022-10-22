@@ -22,6 +22,7 @@
                <th>Name</th>
                <th>Author</th>
                <th>Price</th>
+               <th>Actions</th>
             </tr>
          </thead>
          
@@ -31,6 +32,10 @@
                   <td>{{ book.name }}</td>
                   <td>{{ book.author }}</td>
                   <td>{{ book.price }}</td>
+                  <td>
+                     <a href="/delete/{{book.name}}">Delete</a>
+                     <a href="/modify?name={{book.name}}&&author={{book.author}}&&price={{book.price}}">Modify</a>
+                  </td>
                </tr>
             {% endfor %}
          </tbody>
