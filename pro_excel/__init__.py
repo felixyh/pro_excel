@@ -6,7 +6,7 @@ from functools import wraps
 
 from werkzeug.utils import secure_filename
 import os
-
+import xlrd
 
 
 ## create db
@@ -16,7 +16,7 @@ db = SQLAlchemy()
 class Books(db.Model):
     id = db.Column('book_id', db.Integer, primary_key = True)
     name = db.Column(db.String(100))
-    author = db.Column(db.String(50))  
+    author = db.Column(db.String(50))
     price = db.Column(db.String(10))
 
     def __init__(self, name, author, price):
@@ -126,11 +126,26 @@ def create_app():
         if request.method == 'POST':
             f = request.files['file']
             print(request.files)
-            f.save(os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename)))
-            return "file uploaded successfully"
+            f_path = os.path.join(app.config['UPLOAD_FOLDER'], secure_filename(f.filename))
+            f.save(f_path)
+
+            # read excel file with xlrd module
+            wb = xlrd.open_workbook(f_path)
+            ws = wb.sheets()[0]
+
+            for row_number in range(ws.nrows):
+                row_values = ws.row_values(row_number)
+                book = Books(row_values[0], row_values[1], row_values[2])
+                db.session.add(book)
+            db.session.commit()
+            flash('excel data imported into database successfully!')
+
+            # remove the uploaded excel file
+            os.remove(f_path)
+
+            return redirect(url_for('index'))
 
         return render_template('upload_excel.html')
     
-
     return app
 
