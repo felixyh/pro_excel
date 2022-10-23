@@ -1,15 +1,11 @@
 from flask import Flask, render_template, request, url_for, redirect, flash, session
 from .config import Config
 from flask_sqlalchemy import SQLAlchemy
-
 from functools import wraps
-
 from werkzeug.utils import secure_filename
 import os
 import xlrd
-
 from flask_bootstrap import Bootstrap
-
 
 ## create db
 
@@ -26,17 +22,13 @@ class Books(db.Model):
         self.author = author
         self.price = price
 
-
-
 ### create app
-
 
 def create_app():
 
     app = Flask(__name__)
 
     Bootstrap(app)
-
 
     def auth(func):
         @wraps(func)
@@ -133,7 +125,7 @@ def create_app():
         name = request.form['name']
         return render_template('search.html', name=name, books=Books.query.filter_by(name=name).all())
         
-
+        
     @app.route('/upload_excel', methods = ['GET', 'POST'])
     @auth
     def upload_excel():
