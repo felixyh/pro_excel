@@ -6,6 +6,11 @@
       <h3>
          <a href = "{{ url_for('index') }}">pro_excel program</a>
       </h3>
+      <form action="/search" method="post">
+         <label for="name">Book Name</label>
+         <input type="text" name="name">
+         <input type="submit" Value="Search">
+      </form>
       
       <hr/>
       {% for message in get_flashed_messages() %}
@@ -40,6 +45,7 @@
                   </td>
                </tr>
             {% endfor %}
+            
          </tbody>
       </table>
       

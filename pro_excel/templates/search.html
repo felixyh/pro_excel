@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro_Excel Search</title>
+</head>
+<body>
+    <h3>Search Result for book: {{name}}</h3>
+    <table>
+        <thead>
+           <tr>
+              {# <th>BookID</th> #}
+              <th>Name</th>
+              <th>Author</th>
+              <th>Price</th>
+              <th>Actions</th>
+           </tr>
+        </thead>
+        
+        <tbody>
+           {% for book in books %}
+              <tr>
+                 {# <td>{{ book.id }}</td> #}
+                 <td>{{ book.name }}</td>
+                 <td>{{ book.author }}</td>
+                 <td>{{ book.price }}</td>
+                 <td>
+                    <a href="/delete/{{book.id}}">Delete</a>
+                    <a href="/modify?id={{book.id}}">Modify</a>
+                 </td>
+              </tr>
+           {% endfor %}
+        </tbody>
+     </table>
+     
+     <a href="/index">Return to Home Page</a>
+</body>
+</html>

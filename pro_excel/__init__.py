@@ -117,7 +117,13 @@ def create_app():
         name = book.name
         author = book.author
         price = book.price
-        return render_template('modify.html', author=author, price=price)
+        return render_template('modify.html', name=name, author=author, price=price)
+
+    @app.route('/search', methods=['GET', 'POST'])
+    @auth
+    def search():
+        name = request.form['name']
+        return render_template('search.html', name=name, books=Books.query.filter_by(name=name).all())
         
 
     @app.route('/upload_excel', methods = ['GET', 'POST'])
