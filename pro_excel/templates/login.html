@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro_Excel Project</title>
-</head>
-<body>
-    <form method="post">
-        <label for="account">Account Name: </label><br>
-        <input type="text" name="account"><br>
-        <label for="password">Password: </label><br>
-        <input type="text" name="password"><br>
-        <input type="submit" name="login" value="login">
-    </form>
-    {% for message in get_flashed_messages() %}
-        <div class="flash">{{ message }}</div>
-    {% endfor %}
-</body>
-</html>
+{% extends "mybase.html" %}  
+
+{% block page_content %}  
+<form method="post">
+    <label for="account">Account Name: </label><br>
+    <input type="text" name="account"><br>
+    <label for="password">Password: </label><br>
+    <input type="text" name="password"><br>
+    <input type="submit" name="login" value="login">
+</form>
+{% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+{% endfor %}
+{% endblock %}

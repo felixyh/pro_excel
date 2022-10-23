@@ -8,6 +8,8 @@ from werkzeug.utils import secure_filename
 import os
 import xlrd
 
+from flask_bootstrap import Bootstrap
+
 
 ## create db
 
@@ -32,6 +34,8 @@ class Books(db.Model):
 def create_app():
 
     app = Flask(__name__)
+
+    Bootstrap(app)
 
 
     def auth(func):
@@ -68,8 +72,9 @@ def create_app():
     @app.route('/index')
     @auth
     def index():
-        return render_template('index.html', books = Books.query.all())
+        return render_template('index.html', account_name=session['username'], books = Books.query.all())
 
+    # 增加
     @app.route('/new_book', methods = ['GET', 'POST'])
     @auth
     def new_book():
@@ -96,6 +101,7 @@ def create_app():
     #     db.session.commit()
     #     return redirect('/index')
 
+    # 删除
     @app.route('/delete/<int:id>')
     @auth
     def delete(id):
@@ -104,6 +110,7 @@ def create_app():
         db.session.commit()
         return redirect('/index')
 
+    # 修改
     @app.route('/modify', methods=['GET', 'POST'])
     @auth
     def modify():
@@ -119,6 +126,7 @@ def create_app():
         price = book.price
         return render_template('modify.html', name=name, author=author, price=price)
 
+    # 查询
     @app.route('/search', methods=['GET', 'POST'])
     @auth
     def search():
@@ -152,6 +160,10 @@ def create_app():
             return redirect(url_for('index'))
 
         return render_template('upload_excel.html')
+
+    @app.route('/testbootstrap/<name>')
+    def testbootstrap(name):
+        return render_template('test_bootstrap.html', name=name)
     
     return app
 

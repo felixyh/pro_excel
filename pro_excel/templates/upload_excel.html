@@ -1,17 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>prox_excel</title>
-</head>
-<body>
-    <form action="{{ request.path }}" method="post" enctype="multipart/form-data">
-        <input type="file" name="file">
-        <input type="submit" name="submit">
+{% extends "mybase.html" %}  
 
-    </form>
-    
-</body>
-</html>
+
+{% block page_content %}
+
+<form action="{{ request.path }}" method="post" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <input type="submit" name="submit">
+
+</form>
+
+{% endblock %}

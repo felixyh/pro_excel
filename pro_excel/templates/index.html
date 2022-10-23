@@ -1,53 +1,57 @@
-<!DOCTYPE html>
-<html lang = "en">
-   <head></head>
-   <body>
+{% extends "mybase.html" %}  
+
+{% block page_content %}
+<div class="content">
+   <form action="/search" method="post">
+      <label for="name">Book Name</label>
+      <input type="text" name="name">
+      <input type="submit" Value="Search">
+   </form>
+
+   {% for message in get_flashed_messages() %}
+      {{ message }}
+   {% endfor %}
+   
+   <p>Books (<a href = "{{ url_for('new_book') }}">Add Book</a>)</p>
+   
+   <p>Books (<a href = "{{ url_for('upload_excel') }}">Upload Excel File</a>)</p>
+   
+   <table>
+      <thead>
+         <tr>
+            {# <th>BookID</th> #}
+            <th>Name</th>
+            <th>Author</th>
+            <th>Price</th>
+            <th>Actions</th>
+         </tr>
+      </thead>
       
-      <h3>
-         <a href = "{{ url_for('index') }}">pro_excel program</a>
-      </h3>
-      <form action="/search" method="post">
-         <label for="name">Book Name</label>
-         <input type="text" name="name">
-         <input type="submit" Value="Search">
-      </form>
-      
-      <hr/>
-      {% for message in get_flashed_messages() %}
-         {{ message }}
-      {% endfor %}
-		
-      <h3>Students (<a href = "{{ url_for('new_book') }}">Add Book</a>)</h3>
-      
-      <h3>Students (<a href = "{{ url_for('upload_excel') }}">Upload Excel File</a>)</h3>
-      
-      <table>
-         <thead>
+      <tbody>
+         {% for book in books %}
             <tr>
-               {# <th>BookID</th> #}
-               <th>Name</th>
-               <th>Author</th>
-               <th>Price</th>
-               <th>Actions</th>
+               {# <td>{{ book.id }}</td> #}
+               <td>{{ book.name }}</td>
+               <td>{{ book.author }}</td>
+               <td>{{ book.price }}</td>
+               <td>
+                  <a href="/delete/{{book.id}}">Delete</a>
+                  <a href="/modify?id={{book.id}}">Modify</a>
+               </td>
             </tr>
-         </thead>
+         {% endfor %}
          
-         <tbody>
-            {% for book in books %}
-               <tr>
-                  {# <td>{{ book.id }}</td> #}
-                  <td>{{ book.name }}</td>
-                  <td>{{ book.author }}</td>
-                  <td>{{ book.price }}</td>
-                  <td>
-                     <a href="/delete/{{book.id}}">Delete</a>
-                     <a href="/modify?id={{book.id}}">Modify</a>
-                  </td>
-               </tr>
-            {% endfor %}
-            
-         </tbody>
-      </table>
-      
-   </body>
-</html>
+      </tbody>
+   </table>
+
+   <br>
+
+   <span style="color: red;">
+      Current login user is: "{{ account_name }}", want to <a href="/logout">logout? </a>
+   </span>
+
+
+</div>
+
+
+{% endblock %}
