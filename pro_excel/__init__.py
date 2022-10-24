@@ -153,9 +153,11 @@ def create_app():
 
         return render_template('upload_excel.html')
 
-    @app.route('/testbootstrap/<name>')
-    def testbootstrap(name):
-        return render_template('test_bootstrap.html', name=name)
+    ##### test bootstrap
+
+    # @app.route('/testbootstrap/<name>')
+    # def testbootstrap(name):
+    #     return render_template('test_bootstrap.html', name=name)
     
     return app
 
